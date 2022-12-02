@@ -1,24 +1,24 @@
 {
     "BehaviorPPO": {
-        "elo": 1197.5050237959372,
+        "elo": 1196.0080728542503,
         "checkpoints": [
             {
-                "steps": 12914,
-                "file_path": "results\\BehaviorPPO\\BehaviorPPO\\BehaviorPPO-12914.onnx",
+                "steps": 21567,
+                "file_path": "results\\BehaviorPPO\\BehaviorPPO\\BehaviorPPO-21567.onnx",
                 "reward": 0.0,
-                "creation_time": 1669995459.6384544,
+                "creation_time": 1670002839.0349145,
                 "auxillary_file_paths": [
-                    "results\\BehaviorPPO\\BehaviorPPO\\BehaviorPPO-12914.pt"
+                    "results\\BehaviorPPO\\BehaviorPPO\\BehaviorPPO-21567.pt"
                 ]
             }
         ],
         "final_checkpoint": {
-            "steps": 12914,
+            "steps": 21567,
             "file_path": "results\\BehaviorPPO\\BehaviorPPO.onnx",
             "reward": 0.0,
-            "creation_time": 1669995459.6384544,
+            "creation_time": 1670002839.0349145,
             "auxillary_file_paths": [
-                "results\\BehaviorPPO\\BehaviorPPO\\BehaviorPPO-12914.pt"
+                "results\\BehaviorPPO\\BehaviorPPO\\BehaviorPPO-21567.pt"
             ]
         }
     },

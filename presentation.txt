@@ -1,0 +1,21 @@
+presentation agenda
+
+- what is tetris?
+
+- how to play?
+	- NP-complete
+		- why is tetris so hard?
+	- using RL methods
+		- off policy learning
+
+- SAC
+	- useful
+
+- what is modern tetris?
+
+- Dual learning -> playing tetris, making moves
+
+In this framework, the actor aims to maximize expected reward while also maximizing entropy. 
+That is, to succeed at the task while acting as randomly as possible
+
+- results + video

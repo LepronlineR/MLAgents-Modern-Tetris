@@ -1,0 +1,30 @@
+{
+    "TetrisSAC": {
+        "elo": 1177.5510704797734,
+        "checkpoints": [
+            {
+                "steps": 19685,
+                "file_path": "results\\TetrisSAC\\TetrisSAC\\TetrisSAC-19248.onnx",
+                "reward": 14.4,
+                "creation_time": 1670007826.9653964,
+                "auxillary_file_paths": [
+                    "results\\TetrisSAC\\TetrisSAC\\TetrisSAC-19248.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 19685,
+            "file_path": "results\\TetrisSAC\\TetrisSAC.onnx",
+            "reward": 14.4,
+            "creation_time": 1670007826.9653964,
+            "auxillary_file_paths": [
+                "results\\TetrisSAC\\TetrisSAC\\TetrisSAC-19248.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.30.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}
