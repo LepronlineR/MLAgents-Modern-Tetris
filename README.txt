@@ -16,3 +16,10 @@ install pytorch
 
 install mlagents
 5. python -m pip install mlagents==0.30.0
+
+To view a description of all the CLI options accepted by mlagents-learn, use the --help:
+mlagents-learn --help
+
+The basic command for training is:
+mlagents-learn <trainer-config-file> --env=<env_name> --run-id=<run-identifier>
+mlagents-learn config/agent-config.yaml --run-id BehaviorPPO
