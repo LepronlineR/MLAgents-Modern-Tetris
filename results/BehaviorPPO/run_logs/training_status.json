@@ -1,0 +1,30 @@
+{
+    "BehaviorPPO": {
+        "elo": 1197.5050237959372,
+        "checkpoints": [
+            {
+                "steps": 12914,
+                "file_path": "results\\BehaviorPPO\\BehaviorPPO\\BehaviorPPO-12914.onnx",
+                "reward": 0.0,
+                "creation_time": 1669995459.6384544,
+                "auxillary_file_paths": [
+                    "results\\BehaviorPPO\\BehaviorPPO\\BehaviorPPO-12914.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 12914,
+            "file_path": "results\\BehaviorPPO\\BehaviorPPO.onnx",
+            "reward": 0.0,
+            "creation_time": 1669995459.6384544,
+            "auxillary_file_paths": [
+                "results\\BehaviorPPO\\BehaviorPPO\\BehaviorPPO-12914.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.30.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}
