@@ -1,24 +1,23 @@
 {
     "TetrisSAC": {
-        "elo": 1177.5510704797734,
         "checkpoints": [
             {
-                "steps": 19685,
-                "file_path": "results\\TetrisSAC\\TetrisSAC\\TetrisSAC-19248.onnx",
-                "reward": 14.4,
-                "creation_time": 1670007826.9653964,
+                "steps": 0,
+                "file_path": "results\\TetrisSAC\\TetrisSAC\\TetrisSAC-0.onnx",
+                "reward": null,
+                "creation_time": 1670274633.3743122,
                 "auxillary_file_paths": [
-                    "results\\TetrisSAC\\TetrisSAC\\TetrisSAC-19248.pt"
+                    "results\\TetrisSAC\\TetrisSAC\\TetrisSAC-0.pt"
                 ]
             }
         ],
         "final_checkpoint": {
-            "steps": 19685,
+            "steps": 0,
             "file_path": "results\\TetrisSAC\\TetrisSAC.onnx",
-            "reward": 14.4,
-            "creation_time": 1670007826.9653964,
+            "reward": null,
+            "creation_time": 1670274633.3743122,
             "auxillary_file_paths": [
-                "results\\TetrisSAC\\TetrisSAC\\TetrisSAC-19248.pt"
+                "results\\TetrisSAC\\TetrisSAC\\TetrisSAC-0.pt"
             ]
         }
     },

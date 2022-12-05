@@ -135,10 +135,10 @@ public class PlayAgent : Agent {
 
     public void CheckDroppedReward(int lowestRow)
     {
-        // favour getting lines at the bottom of the grid
-        // multiplier will be in range 20 - lowest row / 5 (4.4)
-        float multiplier = (game.BoardSize.y - lowestRow) / 5f;
-        float reward = Mathf.Pow(curLines, 2) * 10 * multiplier;
+        // We want higher rewards for the lower you are
+        float multiplier = (game.BoardSize.y - lowestRow + 10) / 10.0f;
+        
+        float reward = multiplier * 0.05f;
         AddReward(reward);
         // update score
         totalScore += reward;

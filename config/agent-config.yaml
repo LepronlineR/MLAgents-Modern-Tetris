@@ -1,60 +1,70 @@
 behaviors:
-  TetrisSAC:
+  TetrisPPO:
   
-    trainer_type: sac
-    max_steps: 1.0e7
-    time_horizon: 1000
-    summary_freq: 15000
+    trainer_type: ppo
+    max_steps: 500000
+    time_horizon: 1024
+    summary_freq: 50000
     keep_checkpoints: 5
     checkpoint_interval: 50000
-    threaded: true
+    threaded: false
     init_path: null
 
-    # SAC-specific configs (replaces the hyperparameters section above)
     hyperparameters:
       # Hyperparameters common to PPO and SAC
-      batch_size: 128
-      buffer_size: 1000000
-      learning_rate: 0.001
-      learning_rate_schedule: constant
-
+      batch_size: 64
+      buffer_size: 10240
+      learning_rate: 3.0e-4
+      learning_rate_schedule: linear
 
       # SAC-specific hyperparameters
-      buffer_init_steps: 0
-      tau: 0.005
-      steps_per_update: 10.0
-      save_replay_buffer: false
-      init_entcoef: 0.5
-      reward_signal_steps_per_update: 10.0
+      #buffer_init_steps: 1000
+      #tau: 0.005
+      #steps_per_update: 10.0
+      #save_replay_buffer: false
+      #init_entcoef: 0.5
+      #reward_signal_steps_per_update: 10.0
+      # PPO-specific hyperparameters
+      beta: 1e-4
+      epsilon: 0.1
+      
 
     # Configuration of the neural network (common to PPO/SAC)
     network_settings:
       vis_encode_type: simple
       normalize: false
       hidden_units: 128
-      num_layers: 4
+      num_layers: 2
       # memory
       memory:
         sequence_length: 64
-        memory_size: 128
+        memory_size: 256
 
     reward_signals:
       # environment reward (default)
       extrinsic:
         strength: 1.0
         gamma: 0.99
+      
+      # GAIL
+      gail:
+        strength: 0.01
+        gamma: 0.9
+        demo_path: Demos/TetrisDemo.demo
+        learning_rate: 3.0e-4
+        use_actions: false
+        use_vail: false
 
       # curiosity module
       curiosity:
         strength: 0.02
         gamma: 0.99
-        encoding_size: 256
         learning_rate: 3.0e-4
 
-    # self-play
-    self_play:
-      window: 10
-      play_against_latest_model_ratio: 0.5
-      save_steps: 50000
-      swap_steps: 2000
-      team_change: 100000
+    # BC
+    behavioral_cloning:
+      strength: 0.5
+      demo_path: Demos/TetrisDemo.demo
+      batch_size: 512
+      num_epoch: 3
+      samples_per_update: 0

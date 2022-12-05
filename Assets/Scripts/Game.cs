@@ -260,9 +260,9 @@ public class Game : MonoBehaviour
     }
 
     public void CalculateScoring(int clearedLines, bool tspin, int comboCount, bool backToBack, bool perfectClear) {
-        ulong score = 0;
+        float score = 0;
         if(tspin && clearedLines > 0){
-            score += (ulong)(level) * (400) * (ulong)(clearedLines + 1);
+            score += (level) * (4) * (clearedLines + 1);
             switch(clearedLines){
                 case 1:
                     Debug.Log("T-Spin single");
@@ -279,23 +279,23 @@ public class Game : MonoBehaviour
         } else if(perfectClear && clearedLines > 0){
             if(perfectClear && backToBack){
                 Debug.Log("Perfect Clear Back to Back");
-                score += (ulong)(level) * (3200);
+                score += (ulong)(level) * (32);
             } else {
                 switch(clearedLines){
                     case 1:
-                        score += (ulong)(level) * (800);
+                        score += (ulong)(level) * (8);
                         Debug.Log("Perfect Clear single");
                         break;
                     case 2:
-                        score += (ulong)(level) * (1200);
+                        score += (ulong)(level) * (12);
                         Debug.Log("Perfect Clear double");
                         break;
                     case 3:
-                        score += (ulong)(level) * (1800);
+                        score += (ulong)(level) * (18);
                         Debug.Log("Perfect Clear triple");
                         break;
                     case 4:
-                        score += (ulong)(level) * (2000);
+                        score += (ulong)(level) * (2);
                         Debug.Log("Perfect Clear tetris");
                         break;
                     default:
@@ -305,16 +305,16 @@ public class Game : MonoBehaviour
         } else {
             switch(clearedLines){
                 case 1:
-                    score += (ulong) level * 100;
+                    score += (ulong) level * 1;
                     break;
                 case 2:
-                    score += (ulong) level * 300;
+                    score += (ulong) level * 3;
                     break;
                 case 3:
-                    score += (ulong) level * 500;
+                    score += (ulong) level * 5;
                     break;
                 case 4:
-                    score += (ulong) level * 800;
+                    score += (ulong) level * 8;
                     break;
                 default:
                     break;
@@ -323,7 +323,7 @@ public class Game : MonoBehaviour
 
         if(comboCount > 0){
             Debug.Log(comboCount + " combos");
-            score += (ulong) comboCount * 50;
+            score += (float) comboCount * 0.5f;
         }
 
         if(backToBack && !perfectClear){
@@ -333,9 +333,9 @@ public class Game : MonoBehaviour
     }
 
     public void CalculateAgentScoring(int clearedLines, bool tspin, int comboCount, bool backToBack, bool perfectClear) {
-        ulong score = 0;
+        float score = 0.0f;
         if(tspin && clearedLines > 0){
-            score += (ulong)(level) * (400) * (ulong)(clearedLines + 1);
+            score += (level) * (4) * (clearedLines + 1);
             switch(clearedLines){
                 case 1:
                     agent.sTspin += 1;
@@ -352,23 +352,23 @@ public class Game : MonoBehaviour
         } else if(perfectClear && clearedLines > 0){
             if(perfectClear && backToBack){
                 agent.b2b += 1;
-                score += (ulong)(level) * (3200);
+                score += (level) * (32);
             } else {
                 switch(clearedLines){
                     case 1:
-                        score += (ulong)(level) * (800);
+                        score += (level) * (8);
                         agent.sPc += 1;
                         break;
                     case 2:
-                        score += (ulong)(level) * (1200);
+                        score += (level) * (12);
                         agent.dPc += 1;
                         break;
                     case 3:
-                        score += (ulong)(level) * (1800);
+                        score += (level) * (18);
                         agent.tPc += 1;
                         break;
                     case 4:
-                        score += (ulong)(level) * (2000);
+                        score += (level) * (20);
                         agent.qPc += 1;
                         break;
                     default:
@@ -378,16 +378,16 @@ public class Game : MonoBehaviour
         } else {
             switch(clearedLines){
                 case 1:
-                    score += (ulong) level * 100;
+                    score += level * 1;
                     break;
                 case 2:
-                    score += (ulong) level * 300;
+                    score += level * 3;
                     break;
                 case 3:
-                    score += (ulong) level * 500;
+                    score += level * 5;
                     break;
                 case 4:
-                    score += (ulong) level * 800;
+                    score += level * 8;
                     break;
                 default:
                     break;
@@ -397,7 +397,7 @@ public class Game : MonoBehaviour
         if(comboCount > 0){
             if(agent.maxCombo < comboCount)
                 agent.maxCombo = comboCount;
-            score += (ulong) comboCount * 50;
+            score += comboCount * 0.5f;
         }
 
         if(backToBack && !perfectClear){
