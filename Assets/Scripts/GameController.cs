@@ -51,25 +51,40 @@ public class GameController : MonoBehaviour
 
     bool spin = false;
 
+    // since heuristics run in FixedUpdate, which is after an update step
+    // we implement psuedo down input registers to register a single press
+
+    [HideInInspector] public bool pressedQ = false;
+    [HideInInspector] public bool pressedE = false;
+    [HideInInspector] public bool pressedA = false;
+    [HideInInspector] public bool pressedD = false;
+
     void Update() {
 
         this.game.ClearCurrentTetromino();
 
         this.lockTime += Time.deltaTime;
 
-        if(playerMode){
+        if(playerMode){ // handle this in Heuristic (Agent Script)
             spin = false;
             if(Input.GetKeyDown(KeyCode.Q)){ // ROTATE LEFT
-                RotateLeft();
+                pressedQ = true;
             } else if(Input.GetKeyDown(KeyCode.E)) { // ROTATE RIGHT
-                RotateRight();
+                pressedE = true;
             }
 
-            if(Input.GetKeyDown(KeyCode.Space)) { // HARD DROP
-                HardDrop();
-            }
+            //if(Input.GetKeyDown(KeyCode.Space)) { // HARD DROP
+            //    HardDrop();
+            //}
 
-            HandleMoveInputs();
+            if(Input.GetKeyDown(KeyCode.A)){ // MOVE LEFT
+                pressedA = true;
+            } else if(Input.GetKeyDown(KeyCode.D)){ // MOVE RIGHT
+                pressedD = true;
+            }
+            //else if(Input.GetKey(KeyCode.S)){ // SOFT DROP
+            //    SoftDrop();
+            //}
         }
 
         if(Time.time >= this.stepTime){
@@ -133,9 +148,7 @@ public class GameController : MonoBehaviour
             MoveLeft();
         } else if(Input.GetKeyDown(KeyCode.D)){ // MOVE RIGHT
             MoveRight();
-        }
-
-        if(Input.GetKey(KeyCode.S)){ // SOFT DROP
+        } else if(Input.GetKey(KeyCode.S)){ // SOFT DROP
             SoftDrop();
         }
     }
