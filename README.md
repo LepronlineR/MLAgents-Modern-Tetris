@@ -1,14 +1,6 @@
 # Report: RL for Tetris
 
-dropdown: 
-
-<details><summary> Dropdown</summary>
-
-
-</details>
-
 ##What is Tetris?
-
 
 Tetris is a simple grid like game, where the player move different shaped pieces, called <b> tetrominos</b>, with movement and rotation. These pieces in the board will slowly fall down to the screen, in which will eventually stack up together. However, if a row fills up with the pieces, then it will dissapear. The pieces are spawned on the top of the board, descending to the bottom of the board every X second(s), if the piece is spawned on the board and there are no valid moves, i.e. the player cannot move that piece, then the game is over.
 
@@ -112,6 +104,10 @@ References
 
 ### Model Overview
 
+![PPO](ProjectFiles/TetrisPPO.onnx.png) 
+
+- Model: Recurrent with 128 hidden units and 2 layers
+
 ### Proximal Policy Optimization (PPO)
 
 There are many different models and architectures to consider with how advanced RL methods have come. For our game, we prefer an architecture that can avoid large policy updates, which is what PPO excels at.
@@ -134,7 +130,8 @@ Proximal Policy Optimization, or PPO, is a policy gradient method for RL that op
     - Problems: 
 
 - Surrogate Objective Function: 
-$$ L^{CLIP}(\theta)=\hat {\mathbb{E}}_t \left [ \min(r_t(\theta) \hat A_t, \text{clip}(r_t(\theta), 1-\epsilon, 1+\epsilon)\hat A_t) \right ] $$
+
+    $$L^{CLIP}(\theta)=\hat {\mathbb{E}}_t \left [ \min(r_t(\theta) \hat A_t, \text{clip}(r_t(\theta), 1-\epsilon, 1+\epsilon)\hat A_t) \right ]$$
 
     - Clipping *clip* in the objective function, to prevent large policy updates
 
@@ -159,14 +156,6 @@ def policy_update(self, model):
 References
 [1] PPO paper https://arxiv.org/pdf/1707.06347v2.pdf
 
-### Imitation Learning
-
-#### Behavior Cloning (BC)
-
-- Collects demonstrations from an expert
-- Batch the data into S/A pairs (S, A)
-- Learn the policy by minimizing the loss function
-
 ### Inverse Reinforcement Learning
 
 Inverse Reinforcement Learning: learning an agent's objective, value and rewards.
@@ -181,7 +170,19 @@ A model free imitation learning algorithm, inspired by GANS.
 
 ## Results
 
+![reward](ProjectFiles/reward.png) 
+![loss](ProjectFiles/loss.png) 
+![gail](ProjectFiles/gail.png) 
+
+![results](ProjectFiles/results.gif) 
+
 ## Discussion
+
+As you can see the results are bad, somehow after 500,000 iterations, there is a steep decline in the cumulative reward. What could be causing this?
+
+- A more defined reward schedule: perhaps the penalty is too much, the agent could have learned to just not take that penalty, and instead "stall for time", which is take unnecessary actions to not lose the cumuluative reward over time.
+
+
 
 ## Version
 

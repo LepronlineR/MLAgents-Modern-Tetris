@@ -1,4 +1,62 @@
 {
+    "TetrisPPO": {
+        "checkpoints": [
+            {
+                "steps": 5499940,
+                "file_path": "results\\TetrisPPO\\TetrisPPO\\TetrisPPO-5499940.onnx",
+                "reward": -4.8140136091046974,
+                "creation_time": 1670339588.984053,
+                "auxillary_file_paths": [
+                    "results\\TetrisPPO\\TetrisPPO\\TetrisPPO-5499940.pt"
+                ]
+            },
+            {
+                "steps": 5549977,
+                "file_path": "results\\TetrisPPO\\TetrisPPO\\TetrisPPO-5549977.onnx",
+                "reward": -4.811812129113263,
+                "creation_time": 1670339602.93675,
+                "auxillary_file_paths": [
+                    "results\\TetrisPPO\\TetrisPPO\\TetrisPPO-5549977.pt"
+                ]
+            },
+            {
+                "steps": 5599962,
+                "file_path": "results\\TetrisPPO\\TetrisPPO\\TetrisPPO-5599962.onnx",
+                "reward": -4.805645667983195,
+                "creation_time": 1670339617.3536031,
+                "auxillary_file_paths": [
+                    "results\\TetrisPPO\\TetrisPPO\\TetrisPPO-5599962.pt"
+                ]
+            },
+            {
+                "steps": 5649959,
+                "file_path": "results\\TetrisPPO\\TetrisPPO\\TetrisPPO-5649959.onnx",
+                "reward": -4.807136211919391,
+                "creation_time": 1670339631.7776287,
+                "auxillary_file_paths": [
+                    "results\\TetrisPPO\\TetrisPPO\\TetrisPPO-5649959.pt"
+                ]
+            },
+            {
+                "steps": 5660821,
+                "file_path": "results\\TetrisPPO\\TetrisPPO\\TetrisPPO-5660821.onnx",
+                "reward": null,
+                "creation_time": 1670339929.4563873,
+                "auxillary_file_paths": [
+                    "results\\TetrisPPO\\TetrisPPO\\TetrisPPO-5660821.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 5660821,
+            "file_path": "results\\TetrisPPO\\TetrisPPO.onnx",
+            "reward": null,
+            "creation_time": 1670339929.4563873,
+            "auxillary_file_paths": [
+                "results\\TetrisPPO\\TetrisPPO\\TetrisPPO-5660821.pt"
+            ]
+        }
+    },
     "metadata": {
         "stats_format_version": "0.3.0",
         "mlagents_version": "0.30.0",

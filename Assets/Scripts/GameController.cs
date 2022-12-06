@@ -284,9 +284,8 @@ public class GameController : MonoBehaviour
         while(row < bound.yMax){
             if(ClearableLine(row, map)){
                 linesCleared++;
-            } else {
-                row++;
             }
+            row++;
         }
 
         return linesCleared;

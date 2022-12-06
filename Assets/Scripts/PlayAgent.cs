@@ -141,7 +141,7 @@ public class PlayAgent : Agent {
     public void CheckDroppedReward(int droppedHeight)
     {
         // We want higher rewards for the lower you are
-        float multiplier = (game.BoardSize.y - droppedHeight + 10) / TrainSettings.DroppedRewardDivisor;
+        float multiplier = (game.BoardSize.y - droppedHeight) / TrainSettings.DroppedRewardDivisor;
         
         float reward = multiplier * TrainSettings.DroppedRewardBase;
         AddReward(reward);
@@ -152,6 +152,8 @@ public class PlayAgent : Agent {
     }
 
     public void TetrisScoringReward(int reward){
+        reward *= reward;
+        // square this result for higher rewards
         AddReward(reward);
         // update score
         totalScore += reward;

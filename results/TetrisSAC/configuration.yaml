@@ -20,7 +20,7 @@ behaviors:
       vis_encode_type: simple
       memory:
         sequence_length: 64
-        memory_size: 256
+        memory_size: 128
       goal_conditioning_type: hyper
       deterministic: false
     reward_signals:
@@ -35,6 +35,22 @@ behaviors:
           memory: null
           goal_conditioning_type: hyper
           deterministic: false
+      gail:
+        gamma: 0.99
+        strength: 0.01
+        network_settings:
+          normalize: false
+          hidden_units: 128
+          num_layers: 2
+          vis_encode_type: simple
+          memory: null
+          goal_conditioning_type: hyper
+          deterministic: false
+        learning_rate: 0.0003
+        encoding_size: null
+        use_actions: false
+        use_vail: false
+        demo_path: Demos/TetrisDemo.demo
     init_path: null
     keep_checkpoints: 5
     checkpoint_interval: 50000
@@ -43,7 +59,13 @@ behaviors:
     summary_freq: 10000
     threaded: false
     self_play: null
-    behavioral_cloning: null
+    behavioral_cloning:
+      demo_path: Demos/TetrisDemo.demo
+      steps: 50000
+      strength: 1.0
+      samples_per_update: 0
+      num_epoch: null
+      batch_size: null
 env_settings:
   env_path: null
   env_args: null

@@ -2,22 +2,22 @@
     "TetrisSAC": {
         "checkpoints": [
             {
-                "steps": 12544,
-                "file_path": "results\\TetrisSAC\\TetrisSAC\\TetrisSAC-12544.onnx",
+                "steps": 10240,
+                "file_path": "results\\TetrisSAC\\TetrisSAC\\TetrisSAC-10240.onnx",
                 "reward": null,
-                "creation_time": 1670306631.68081,
+                "creation_time": 1670322826.3143647,
                 "auxillary_file_paths": [
-                    "results\\TetrisSAC\\TetrisSAC\\TetrisSAC-12544.pt"
+                    "results\\TetrisSAC\\TetrisSAC\\TetrisSAC-10240.pt"
                 ]
             }
         ],
         "final_checkpoint": {
-            "steps": 12544,
+            "steps": 10240,
             "file_path": "results\\TetrisSAC\\TetrisSAC.onnx",
             "reward": null,
-            "creation_time": 1670306631.68081,
+            "creation_time": 1670322826.3143647,
             "auxillary_file_paths": [
-                "results\\TetrisSAC\\TetrisSAC\\TetrisSAC-12544.pt"
+                "results\\TetrisSAC\\TetrisSAC\\TetrisSAC-10240.pt"
             ]
         }
     },

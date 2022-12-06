@@ -70,8 +70,8 @@ public class Game : MonoBehaviour
         tilemap.ClearAllTiles();
 
         if(agent != null){
-            agent.EndEpisode();
             agent.GameOverReward();
+            agent.EndEpisode();
         }
     }
 
@@ -120,11 +120,6 @@ public class Game : MonoBehaviour
 
     public void SpawnTetromino(TetrominoData data){
         this.controller.Init(this, spawnPosition, data);
-
-        // set observation for current piece
-        if(agent != null){
-            observations[observations.Count - 1] = (float) this.controller.data.tetromino;
-        }
 
         if (ValidPos(spawnPosition)) {
             SetCurrentTetromino();
