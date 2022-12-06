@@ -12,11 +12,9 @@ public class GameSettings : MonoBehaviour
     [Header("Game Settings")]
 
     [SerializeField] bool enableGhostTetromino = true;
-    [SerializeField] bool enablePlayerMode = true;
 
     void Start(){
         ghostTetromino.GhostMode = enableGhostTetromino;
-        controller.PlayerMode = enablePlayerMode;
 
         StartGame();
     }

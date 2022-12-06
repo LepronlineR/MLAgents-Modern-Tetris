@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
+using Unity.MLAgents.Policies;
 
 public class PlayAgent : Agent {
     
@@ -35,6 +36,8 @@ public class PlayAgent : Agent {
     [HideInInspector] public int qPc = 0;
     [HideInInspector] public int maxCombo = 0;
 
+    [SerializeField] public BehaviorParameters behavior;
+
     void Start() {
         game.InitGame();
         game.InitRandomizer();
@@ -52,13 +55,13 @@ public class PlayAgent : Agent {
     
     // Observations
 
-    // all the tiles (occupied or not occupied)
-    
-    // current piece
-    
-    // (NOT ADDED YET) next pieces
-
-    // (NOT ADDED YET) held piece    
+    // observations[0] = Current Tetromino Piece
+    // observations[1->160] = every rotation of a piece (4) * every position (10) * evaluations (4)
+    // evaluations:
+    //  - # of lines that will be cleared
+    //  - # of holes in the grid
+    //  - grid bump
+    //  - grid sum height
     public override void CollectObservations(VectorSensor sensor){
         sensor.AddObservation(game.observations);
     }
@@ -74,9 +77,11 @@ public class PlayAgent : Agent {
             case 0:
                 break;
             case 1:
+                controller.spin = true;
                 controller.RotateRight();
                 break;
             case 2:
+                controller.spin = true;
                 controller.RotateLeft();
                 break;
             default:
@@ -133,13 +138,14 @@ public class PlayAgent : Agent {
         }
     }
 
-    public void CheckDroppedReward(int lowestRow)
+    public void CheckDroppedReward(int droppedHeight)
     {
         // We want higher rewards for the lower you are
-        float multiplier = (game.BoardSize.y - lowestRow + 10) / 10.0f;
+        float multiplier = (game.BoardSize.y - droppedHeight + 10) / TrainSettings.DroppedRewardDivisor;
         
-        float reward = multiplier * 0.05f;
+        float reward = multiplier * TrainSettings.DroppedRewardBase;
         AddReward(reward);
+
         // update score
         totalScore += reward;
         textScore.text = "Reward: " + totalScore;

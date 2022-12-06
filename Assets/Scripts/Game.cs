@@ -12,7 +12,7 @@ public class Game : MonoBehaviour
     [SerializeField] Vector3Int spawnPosition;
     [SerializeField] Vector2Int boardSize = new Vector2Int(10, 20);
     [SerializeField] int level = 1;
-    [SerializeField] public List<float> observations = new List<float>(10 * 20 + 1);
+    [SerializeField] public List<float> observations = new List<float>();
     [SerializeField] PlayAgent agent;
 
     public Tilemap TileMap { get => tilemap; private set => tilemap = value; }
@@ -38,6 +38,7 @@ public class Game : MonoBehaviour
             InitGame();
             InitRandomizer();
             SpawnTetrominoRandomizer();
+            controller.GetNewObservation();
         }
     }
 
@@ -52,6 +53,8 @@ public class Game : MonoBehaviour
         currentTetrominoCount = 9999;
         // spawn new piece
         SpawnTetrominoRandomizer();
+
+        controller.GetNewObservation();
     }
 
     public void InitGame(){
@@ -225,11 +228,8 @@ public class Game : MonoBehaviour
         while(row < bounds.yMax){
             for(int col = bound.xMin; col < bound.xMax; col++){
                 if(this.tilemap.HasTile(new Vector3Int(col, row, 0))){
-                    observations[count] = 1;
                     result = false;
                     emptyRow = false;
-                } else {
-                    observations[count] = 0;
                 }
                 count++;
             }
@@ -239,8 +239,8 @@ public class Game : MonoBehaviour
             row++;
             emptyRow = true;
         }
-        if(agent != null)
-            agent.CheckDroppedReward(lowestRow);
+        //if(agent != null)
+        //    agent.CheckDroppedReward(lowestRow);
         return result;
     }
 

@@ -43,4 +43,4 @@ mlagents-learn --help
 
 The basic command for training is:
 mlagents-learn \<trainer-config-file> --env=<env_name> --run-id=\<run-identifier>
-mlagents-learn config/agent-config.yaml --run-id TetrisSAC --force
+i.e.) mlagents-learn config/agent-config.yaml --run-id TetrisPPO --force

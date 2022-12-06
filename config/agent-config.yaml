@@ -2,9 +2,9 @@ behaviors:
   TetrisPPO:
   
     trainer_type: ppo
-    max_steps: 500000
-    time_horizon: 1024
-    summary_freq: 50000
+    max_steps: 1.0e7
+    time_horizon: 64
+    summary_freq: 10000
     keep_checkpoints: 5
     checkpoint_interval: 50000
     threaded: false
@@ -12,22 +12,20 @@ behaviors:
 
     hyperparameters:
       # Hyperparameters common to PPO and SAC
-      batch_size: 64
-      buffer_size: 10240
-      learning_rate: 3.0e-4
-      learning_rate_schedule: linear
+      batch_size: 512
+      buffer_size: 50000
+      learning_rate: 0.001
+      learning_rate_schedule: constant
 
       # SAC-specific hyperparameters
-      #buffer_init_steps: 1000
-      #tau: 0.005
-      #steps_per_update: 10.0
-      #save_replay_buffer: false
-      #init_entcoef: 0.5
-      #reward_signal_steps_per_update: 10.0
+      # buffer_init_steps: 10000
+      # tau: 0.005
+      # steps_per_update: 1
+      
       # PPO-specific hyperparameters
       beta: 1e-4
       epsilon: 0.1
-      
+
 
     # Configuration of the neural network (common to PPO/SAC)
     network_settings:
@@ -47,24 +45,14 @@ behaviors:
         gamma: 0.99
       
       # GAIL
-      gail:
-        strength: 0.01
-        gamma: 0.9
-        demo_path: Demos/TetrisDemo.demo
-        learning_rate: 3.0e-4
-        use_actions: false
-        use_vail: false
-
-      # curiosity module
-      curiosity:
-        strength: 0.02
-        gamma: 0.99
-        learning_rate: 3.0e-4
+      #gail:
+      #  strength: 0.5
+      #  demo_path: Demos/TetrisDemo.demo
 
     # BC
-    behavioral_cloning:
-      strength: 0.5
-      demo_path: Demos/TetrisDemo.demo
-      batch_size: 512
-      num_epoch: 3
-      samples_per_update: 0
+    #behavioral_cloning:
+    #  strength: 0.5
+    #  demo_path: Demos/TetrisDemo.demo
+    #  batch_size: 512
+    #  num_epoch: 3
+    #  samples_per_update: 0

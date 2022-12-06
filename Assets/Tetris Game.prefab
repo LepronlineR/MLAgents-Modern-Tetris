@@ -195,7 +195,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 201
+    VectorObservationSize: 161
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 0
@@ -205,7 +205,7 @@ MonoBehaviour:
     VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1
   m_Model: {fileID: 0}
-  m_InferenceDevice: 3
+  m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: TetrisPPO
   TeamId: 0
@@ -248,6 +248,7 @@ MonoBehaviour:
   tPc: 0
   qPc: 0
   maxCombo: 0
+  behavior: {fileID: 1879518871314708153}
 --- !u!114 &1879518871314708151
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1076,7 +1077,7 @@ MonoBehaviour:
   moveDelay: 0.01
   lockDelay: 0.1
   totalValidStepsBeforeLock: 2
-  playerMode: 0
+  spin: 0
   pressedQ: 0
   pressedE: 0
   pressedA: 0
