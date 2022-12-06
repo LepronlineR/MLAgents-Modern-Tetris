@@ -2,14 +2,17 @@
 
 ## What is Tetris?
 
-Enable typographer option to see result.
+Tetris is a simple grid like game, where the player move different shaped pieces, with movement and rotation. These pieces in the board will slowly fall down to the screen, in which will eventually stack up together. However, if a row fills up with the pieces, then it will dissapear. The pieces are spawned on the top of the board, descending to the bottom of the board every X second(s), if the piece is spawned on the board and there are no valid moves, i.e. the player cannot move that piece, then the game is over.
 
-(c) (C) (r) (R) (tm) (TM) (p) (P) +-
-
-test.. test... test..... test?..... test!....
+![TetrisGame](ProjectFiles/tetris.gif)
 
 
-"Smartypants, double quotes" and 'single quotes'
+## Optimization
+
+
+
+References
+[1] https://codemyroad.wordpress.com/2013/04/14/tetris-ai-the-near-perfect-player/
 
 ## Version
 
