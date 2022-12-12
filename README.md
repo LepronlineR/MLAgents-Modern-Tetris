@@ -1,6 +1,6 @@
 # Report: RL for Tetris
 
-##What is Tetris?
+## What is Tetris?
 
 Tetris is a simple grid like game, where the player move different shaped pieces, called <b> tetrominos</b>, with movement and rotation. These pieces in the board will slowly fall down to the screen, in which will eventually stack up together. However, if a row fills up with the pieces, then it will dissapear. The pieces are spawned on the top of the board, descending to the bottom of the board every X second(s), if the piece is spawned on the board and there are no valid moves, i.e. the player cannot move that piece, then the game is over.
 
@@ -12,9 +12,9 @@ Tetris is a competitive game, with players constantly updating how the game is p
 
 ### Why Machine Learning?
 
-We can first confirm that tetris is a problem that is NP complete, we can easily look at if there is a solution for a piece in some kind of board. However, we intend to maximize the amount of scores that we can achieve, this means that there are multiple combinations that require many different pieces in some kind of order to achieve that.
+We can first confirm that tetris is a problem that is NP complete. We can easily look at if there is a solution for a piece in some kind of board state. This board state can be new or even contain many different stacked pieces. However, if we intend to maximize the amount of scores that we can achieve, this means that there are multiple combinations that require many different pieces in some kind of order to achieve that.
 
-We can prove that this problem is NP-hard by reducing it from another problem: 3-Partition. The proof is given under the resources [1]. With this proof we know that the game is deterministic. However, still with many variables to consider, as well as the many possibilities to play the game, a large state space, and what problems we could solve before moving onto larger ones. With that many considerations, we can look to reinforcement learning in order to solve this problem.
+We can prove that this problem is NP-hard by reducing it from another problem: 3-Partition. The proof is given under the resources [1] and I will not extensively delve into why. Nonetheless, with this proof we know that the game is deterministic. However, still with many variables to consider, as well as the many possibilities to play the game, a large state space, and what problems we could solve before moving onto larger ones. With that many considerations, we can look to reinforcement learning in order to solve this problem.
 
 Note that this project is really hard to work on in Colab or Jupyter notebook due to the fact that it has a limited runtime, whereas hard RL problems need a lot of time to train.
 
@@ -57,7 +57,7 @@ In our version, we chose to implement most of the ruleset, while leaving out som
 References
 [1] Rules and Guidelines: https://tetris.fandom.com/wiki/Tetris_Guideline
 
-## Tetris Environment Implementation
+## Tetris Game
 
 In our project, the game is implemented in Unity and C#. However, the logic still remains the same for the pseudocode. The environment takes one value (the action) and returns three values: the rewards given the reward schedule, the observation from the environment.
 ```
@@ -67,11 +67,9 @@ def logic():
         
         # AI operations
 ```
-Naively, we can assume that our observation is the screen space, which is just a vector space of the board. If there is a piece at that location it would be 1 and 0 if none. 
-
 The reward schedule is variant, and there are multiple reasons to include different reward schedules.
 
-Here is the current reward schedule:
+Here is the current <b> reward schedule </b>:
 
 - (penalty) -5 points for losing
 - for each block that lands 0.005 * multiplier, where multiplier = how low/high a block is 
@@ -79,11 +77,37 @@ Here is the current reward schedule:
 
 Our reward schedule wants to incentivise the AI to continue placing blocks as low as possible, while penalizing them for losing. To keep true to tetris scoring, we have that as a reward schedule, this potentially should yield higher returns when a score is made with that metric. Furthermore, by scoring more lines, since the results are squared, the higher rewards should be present.
 
-### Game Board and Tetrominos
+The agent/player has several <b> actions </b> they can take: moving down, moving left, moving right or rotating left, rotating right. Of course in these decisions, the AI also has the ability to take no action. Here we relegate these discrete action spaces to two different results, since we want the agent to actually move and rotate at the same time in order to make effective movement decisions. However, this might be a red herring and possibly maybe even sabotage our agent behavior (since you might see at the end the agent moves sporadically).
 
-```
+Naively, we can assume that our observation is the screen space, which is just a vector space of the board. If there is a piece at that location it would be 1 and 0 if none. The <b> Environment </b> contains a 10 x 20 board, in which pieces will start at the top and slowly descend to the bottom. Each piece willlock in place once they hit a bottom platform of any kind.
 
-```
+I chose to disable hard dropping in the game because it has a chance to sabotage any AI in learning where to drop in its exploring step, if the AI chooses to drop the piece and learns to hard drop almost every time, then it might take substantially much longer in order to learn where to drop the piece, thus wasting training time. Since we just want it to play modern tetris effectively we can introduce this variable in after we know the approximate time that it will learn to play the game.
+
+##### Randomizer
+
+In classic tetris there is a problem called tetrominos drought, that is when you dont get any tetrominos that you need as well as piece flood, where you get too many bad tetrominos in a row. To solve this problem there is a randomizer called the 7 bag randomizer, which shuffles 7 tetrominos in a bag and then those tetrominos will be the next 7 tetrominos. Then if the last tetromino is used, a new 7 bag will be generated. This prevents the prior issues that are brought up.
+
+#### How does spinning work?
+
+Tetris introduces a system called locking, when the piece falls to the ground it has a small time frame in which you can rotate or move the piece before it locks in place and a new piece will fall down. This actually gives the opportunity for us to rotate the piece in some way. Introducing the T-spin, when you have X clearable rows and with 3 corners being occupied with where you drop the last piece, and rotating that t piece to clear the rows, you effectively have done a t-spin, which is generally a hard maneuver in tetris. Here is a small gif of how it is done.
+
+![tspin](ProjectFiles/tspinshow.gif) 
+
+#### How does full clearing work?
+
+When you clear the entire board with all the pieces, you achieve a full clear, which gives you many new additional points. This comes with a lot of planning so it is an advanced move.
+
+#### What are combos?
+
+When you clear any lines in consecutive order without placing a block without clearing a line, you begin a combo, if you continuously add blocks while clearing you add more to the combo and get additional points for the difficulty of the line cleared.
+
+#### What is Back to Back?
+
+In tetris, there are difficult manuevers, which are the t-spins, full clearing, and getting a tetris (clearing 4 lines in one go). These manuevers are rewarded by adding an extra multiplier called back to back. This incentivizes players to take more risks and perform more difficult moves.
+
+References:
+[1] T-spins: https://aminoapps.com/c/puyo-puyo-tetris/page/blog/t-spin-tutorial/JaZ1_ZJidurXexwY56lXlbbbm3ERwavXBp
+
 ## Optimization
 
 When you consider a human playing tetris, an observation at the specific cells would not yield as high results than looking at the possibility of the next placed piece in some location. Thus, we can further optimize the observation, from looking at the screen, we should look at the next potential moves that we could make, and from that derive a metric to look at those observations.
