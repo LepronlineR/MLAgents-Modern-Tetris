@@ -5,19 +5,19 @@ behaviors:
     hyperparameters:
       batch_size: 512
       buffer_size: 409600
-      learning_rate: 0.001
+      learning_rate: 1.0e-05
       beta: 0.01
       epsilon: 0.3
       lambd: 0.95
-      num_epoch: 5
+      num_epoch: 10
       shared_critic: false
       learning_rate_schedule: linear
       beta_schedule: linear
       epsilon_schedule: linear
     network_settings:
       normalize: false
-      hidden_units: 128
-      num_layers: 2
+      hidden_units: 256
+      num_layers: 3
       vis_encode_type: simple
       memory:
         sequence_length: 64
@@ -56,17 +56,11 @@ behaviors:
     keep_checkpoints: 5
     checkpoint_interval: 50000
     max_steps: 10000000
-    time_horizon: 64
+    time_horizon: 128
     summary_freq: 10000
     threaded: false
     self_play: null
-    behavioral_cloning:
-      demo_path: Demos/TetrisDemo.demo
-      steps: 0
-      strength: 0.5
-      samples_per_update: 0
-      num_epoch: null
-      batch_size: null
+    behavioral_cloning: null
 env_settings:
   env_path: null
   env_args: null
