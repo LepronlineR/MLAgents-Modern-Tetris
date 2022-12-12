@@ -187,6 +187,10 @@ The data from GAIL is recorded from me in a 1 hour playthrough of tetris in the 
 References:
 [1] https://arxiv.org/pdf/1606.03476.pdf
 
+## Implementation
+
+These models are completely generated through Unity's ML Agent API. In which, when the user gives the agent an environment and the reward signals, the agent is generated from a .YAML config file and set to train due to specific commands entered into the configurations. The config is in the config file. Thus, for our implementation we only can assume that our theory to solve this problem is correct, in which we are able to solve this problem, as well as the environment of tetris that is provided with the agent, including the rewards the agents recieve. The observation space is also calculated in the game, since it doesn't just naively look at each tile, it looks at every potential move that it can make and calculates it based on the heurisitcs. 
+
 ## Results
 
 https://www.youtube.com/watch?v=-Cb9MtgNxUg
@@ -237,12 +241,35 @@ As you can see the results are bad, somehow after 500,000 iterations, there is a
 
 ## Second Try
 
-I ran the model a second time with some parameters changed in order to see how the model can perform in a different setting. This time
+I ran the model a second time with some parameters slightly changed in order to see some kind of repeating pattern in order to diagnose this issue more effectively. I chose to add more hidden units to my layer since there is a suggestion that the NN might need to make more advanced decisions and thus would require a larger model. This took me 6 million epochs, which is around the same time (4.5 hours), I wanted both of the models to have the same training time so that my comparison would be much better.
 
+PPO:
+- <b>Batch Size </b>: 512
+- <b>Buffer Size </b>: 409600
+- <b>Learning Rate </b>: 0.001
+- <b>Beta </b>: 0.001
+- <b>Epsilon </b>: 0.3
+- <b>Lambda </b>: 0.95
+- <b>Num Epoch </b>: 10
+- <b>Sequence length </b>: 64
+
+GAIL:
+- <b>Expert Data </b>: 60 minutes of gameplay
+- <b>Strength </b>: 0.5
+- <b>Gamma </b>: 0.99
+
+![2ndmodel](ProjectFiles/TetrisPPO2.png) 
+![reward2](ProjectFiles/reward2.png) 
+![loss2](ProjectFiles/loss2.png) 
+![gail2](ProjectFiles/gail2.png) 
+
+## Discussion 2
+
+This model does clarify more about the problem, as we can see the spike did not effect any of the updates at all and the model still does not learn effectively, this means that the model is currently still in exploration at this point, and we still cannot consider it fully trained. Thus, if we give this model another week to train under the same circumstances, perhaps it will get much better over time. With how the model takes a lot of computer power (since it is from a laptop) it is effectively hard to train, as it is not fully using all the cores avalible to train.
 
 ## Conclusions
 
-As one of the projects that did not actually solve the problem, especially in reinforcement learning, there is a lot to reflect from and possibly from the data, predict what could have gone wrong with the model. 
+As one of the projects that did not actually solve the problem, especially in reinforcement learning, there is a lot to reflect from and possibly from the data, predict what could have gone wrong with the model. Since I did have a second attempt at solving the problem this means that my model does actually have the potential to solving the problem, but with the amount of power needed to computer with reinforcement learning it is harder to prove and harder to train. I still believe that my solution would work with this problem, but what is ahead could be the model playing tetris. Since we have previously trained tetris models to play using Q Learning, it is very possible that PPO with GAIL will solve this problem. However, the case still stands with the complexity of the problem, since we are adding more exteneous reward signals, such as ways to gain more points (t-spinning, perfect clears, etc), we want the models to eventually perform those tasks over just clearing one or two lines, since the trade off for those actions is effectively more rewards than previously. Unfortunately these observations will be ahead of the project (which will be completed on my own), since there is a lack of time as well as computing power to solve this problem at this moment.
 
 ## Version
 
