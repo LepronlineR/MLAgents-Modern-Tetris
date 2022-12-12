@@ -215,6 +215,11 @@ References:
 
 These models are completely generated through Unity's ML Agent API. In which, when the user gives the agent an environment and the reward signals, the agent is generated from a .YAML config file and set to train due to specific commands entered into the configurations. The config is in the config file. Thus, for our implementation we only can assume that our theory to solve this problem is correct, in which we are able to solve this problem, as well as the environment of tetris that is provided with the agent, including the rewards the agents recieve. The observation space is also calculated in the game, since it doesn't just naively look at each tile, it looks at every potential move that it can make and calculates it based on the heurisitcs. 
 
+Here are some gifs of the AI while training:
+
+![training1](ProjectFiles/training.gif) 
+![training2](ProjectFiles/training2.gif) 
+
 ## Results
 
 https://www.youtube.com/watch?v=-Cb9MtgNxUg
