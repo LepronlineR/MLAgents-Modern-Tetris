@@ -2,58 +2,58 @@
     "TetrisPPO": {
         "checkpoints": [
             {
-                "steps": 8199896,
-                "file_path": "results\\TetrisPPO\\TetrisPPO\\TetrisPPO-8199896.onnx",
-                "reward": null,
-                "creation_time": 1670818781.5327392,
+                "steps": 9849956,
+                "file_path": "results\\TetrisPPO\\TetrisPPO\\TetrisPPO-9849956.onnx",
+                "reward": -4.642807776788966,
+                "creation_time": 1677414214.2700808,
                 "auxillary_file_paths": [
-                    "results\\TetrisPPO\\TetrisPPO\\TetrisPPO-8199896.pt"
+                    "results\\TetrisPPO\\TetrisPPO\\TetrisPPO-9849956.pt"
                 ]
             },
             {
-                "steps": 8249944,
-                "file_path": "results\\TetrisPPO\\TetrisPPO\\TetrisPPO-8249944.onnx",
-                "reward": null,
-                "creation_time": 1670818802.4059339,
+                "steps": 9899892,
+                "file_path": "results\\TetrisPPO\\TetrisPPO\\TetrisPPO-9899892.onnx",
+                "reward": -4.675250106321817,
+                "creation_time": 1677414242.0715902,
                 "auxillary_file_paths": [
-                    "results\\TetrisPPO\\TetrisPPO\\TetrisPPO-8249944.pt"
+                    "results\\TetrisPPO\\TetrisPPO\\TetrisPPO-9899892.pt"
                 ]
             },
             {
-                "steps": 8299905,
-                "file_path": "results\\TetrisPPO\\TetrisPPO\\TetrisPPO-8299905.onnx",
-                "reward": -4.755833378216873,
-                "creation_time": 1670818820.446757,
+                "steps": 9949966,
+                "file_path": "results\\TetrisPPO\\TetrisPPO\\TetrisPPO-9949966.onnx",
+                "reward": -4.6868929434068765,
+                "creation_time": 1677414269.8386025,
                 "auxillary_file_paths": [
-                    "results\\TetrisPPO\\TetrisPPO\\TetrisPPO-8299905.pt"
+                    "results\\TetrisPPO\\TetrisPPO\\TetrisPPO-9949966.pt"
                 ]
             },
             {
-                "steps": 8349954,
-                "file_path": "results\\TetrisPPO\\TetrisPPO\\TetrisPPO-8349954.onnx",
-                "reward": -4.688894834197861,
-                "creation_time": 1670818858.7652974,
+                "steps": 9999916,
+                "file_path": "results\\TetrisPPO\\TetrisPPO\\TetrisPPO-9999916.onnx",
+                "reward": -4.693930659507815,
+                "creation_time": 1677414297.1596103,
                 "auxillary_file_paths": [
-                    "results\\TetrisPPO\\TetrisPPO\\TetrisPPO-8349954.pt"
+                    "results\\TetrisPPO\\TetrisPPO\\TetrisPPO-9999916.pt"
                 ]
             },
             {
-                "steps": 8392976,
-                "file_path": "results\\TetrisPPO\\TetrisPPO\\TetrisPPO-8392976.onnx",
-                "reward": -4.674234456077102,
-                "creation_time": 1670818884.6723537,
+                "steps": 10000044,
+                "file_path": "results\\TetrisPPO\\TetrisPPO\\TetrisPPO-10000044.onnx",
+                "reward": -4.693930659507815,
+                "creation_time": 1677414297.3006103,
                 "auxillary_file_paths": [
-                    "results\\TetrisPPO\\TetrisPPO\\TetrisPPO-8392976.pt"
+                    "results\\TetrisPPO\\TetrisPPO\\TetrisPPO-10000044.pt"
                 ]
             }
         ],
         "final_checkpoint": {
-            "steps": 8392976,
+            "steps": 10000044,
             "file_path": "results\\TetrisPPO\\TetrisPPO.onnx",
-            "reward": -4.674234456077102,
-            "creation_time": 1670818884.6723537,
+            "reward": -4.693930659507815,
+            "creation_time": 1677414297.3006103,
             "auxillary_file_paths": [
-                "results\\TetrisPPO\\TetrisPPO\\TetrisPPO-8392976.pt"
+                "results\\TetrisPPO\\TetrisPPO\\TetrisPPO-10000044.pt"
             ]
         }
     },
