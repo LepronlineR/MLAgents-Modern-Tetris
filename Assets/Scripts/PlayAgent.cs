@@ -55,8 +55,8 @@ public class PlayAgent : Agent {
     
     // Observations
 
-    // observations[0] = Current Tetromino Piece
-    // observations[1->160] = every rotation of a piece (4) * every position (10) * evaluations (4)
+    // observations[0:6] = Current Tetromino Piece
+    // observations[7:1127] = every tetromino piece (7) * every rotation of a piece (4) * every position (10) * evaluations (4)
     // evaluations:
     //  - # of lines that will be cleared
     //  - # of holes in the grid

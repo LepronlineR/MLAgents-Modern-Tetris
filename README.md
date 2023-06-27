@@ -300,6 +300,155 @@ This model does clarify more about the problem, as we can see the spike did not 
 
 As one of the projects that did not actually solve the problem, especially in reinforcement learning, there is a lot to reflect from and possibly from the data, predict what could have gone wrong with the model. Since I did have a second attempt at solving the problem this means that my model does actually have the potential to solving the problem, but with the amount of power needed to computer with reinforcement learning it is harder to prove and harder to train. I still believe that my solution would work with this problem, but what is ahead could be the model playing tetris. Since we have previously trained tetris models to play using Q Learning, it is very possible that PPO with GAIL will solve this problem. However, the case still stands with the complexity of the problem, since we are adding more exteneous reward signals, such as ways to gain more points (t-spinning, perfect clears, etc), we want the models to eventually perform those tasks over just clearing one or two lines, since the trade off for those actions is effectively more rewards than previously. Unfortunately these observations will be ahead of the project (which will be completed on my own), since there is a lack of time as well as computing power to solve this problem at this moment.
 
+## A year later... Fixing the "problems"
+
+There are some ways that we can improve this model significantly. In order to see some more positive results, we may have to look at the reward schedule again. The current reward schedule is based on height, and not very well thought out. Therefore, if we can improve the results throughout training, we have to train it to play normally:
+
+* learning to play tetris (stacking and placing)
+* learning advanced techniques (t-spin, combos, etc) [later]
+
+### Looking at the major problems
+
+The first major problem was how we achieve the observation space:
+```
+// observations[0] = Current Tetromino Piece
+// observations[1->160] = every rotation of a piece (4) * every position (10) * evaluations (4)
+// evaluations:
+//  - # of lines that will be cleared
+//  - # of holes in the grid
+//  - grid bump
+//  - grid sum height
+```
+Here are the major problems with this:
+
+- the observation does not really track every tetromino piece, all the pieces will perform different actions. We need to track every observation of every different piece, otherwise the network will update the piece differently due to how the action of that piece will go. Furthermore, we should have the agent observe the board, since the agent has no idea what the board looks like, and just the actions that the pieces can take, the agent most likely does not have a good idea on what actions it should take. Therefore, it is recommended to add the state of the board as an observation.
+
+There are multiple solutions to this:
+
+1. Here we just add all the rotations/movements/evaluations to every tetromino pieces.
+``` 
+// observations[0 to 1] = Current Tetromino Piece
+// observations[1 to 1120] = every tetromino piece (7) * every rotation of a piece (4) * every position (10) * evaluations (4)
+// observations[1120 to 1320] = State of the board
+// evaluations:
+//  - # of lines that will be cleared
+//  - # of holes in the grid
+//  - grid bump
+//  - grid sum height
+```
+2. The previous solution has a very large observation space, and there is a very likely chance for the hidden layer to have dead neurons since every piece and roation wont be too valuable. Thus, we can try to lower the observation to the state of the board and possible evaluations.
+
+```
+// observations[0 to 1] = Current Tetromino Piece
+// observations[1 to 201] = State of the board
+// observations[201 to 201] = State of the board
+
+
+```
+
+- This is how we get a single observation:
+```
+public float[] GetSingleObservationMove(int x, int rot) {
+        this.game.ClearCurrentTetromino();
+        // save current position
+        Vector3Int savePos = this.pos;
+        Vector3Int[] saveTetrominoPositions = this.tetrominoPositions;
+
+        Vector2Int newPos = new Vector2Int(x, this.pos.y);
+
+        // move
+        SetTetromino(newPos);
+
+        while(MoveTetromino(Vector2Int.down)){
+            continue;
+        }
+        // rotate
+        for(int i = 0; i < rot; i++)
+            RotateRight();
+
+        // view change        
+        this.game.SetCurrentTetromino();
+
+        // GET OBSERVATIONS
+        float[] result = GetSingleObservation(this.game.TileMap, x, rot);
+
+        // reset to previous
+        this.game.ClearCurrentTetromino();
+        this.pos = savePos;
+        this.tetrominoPositions = saveTetrominoPositions;
+        this.game.SetCurrentTetromino();
+
+        return result;
+    }
+```
+A small bug here is the movement before the rotation. There are some errors with rotation before and rotation after. For example:
+
+if I can not rotate at the start, there are many places where we cannot find the proper place to drop the piece (the corner would want the piece to rotate first and then drop)
+
+```
+# # # x x x x x x x x
+x # x x x x x x x x x 
+x x x x x x x x x x x
+x x x x x x x x x x x 
+x x x x x x x x x x x
+x x x x x x x x x x x 
+x x x x x x x x x x x
+x x x x x x x # x x # 
+x x x x x # # # # x #
+x # # # # # # # # # # 
+```
+
+
+if I can rotate at the start, the t piece on the top will not be able to t-spin
+```
+# # # x x x x x x x x
+x # x x x x x x x x x 
+x x x x x x x x x x x
+x x x x x x x x x x x 
+x x x x x x x x x x x
+x x x x x x x x x x x 
+x x x x # x x x x x x
+x x x x # # x # x x # 
+# x x x x # # # # x #
+# # # x # # # # # # # 
+```
+
+In order to solve this problem, we have two ways to approach this, either way the observation space will have to increase or we will rely on some intuition.
+
+Furthermore, there is another problem obtaining the observations, it may seem incredibly hard for the AI to understand the usefulness of aggregate height, bumpiness, etc if the results of which are not forecasted. Therefore, those numbers produced by the observations are not relevant unless it leads to the reward increasing. Thus, we need to find a way for the agent to gain reward for finding the right heuristics:
+
+i.e. in the doc describing the heuristics:
+```
+a * (aggregate height) + b * (complete lines) + c * (holes) + d * (bumpiness)
+
+We want to minimize aggregate height, holes and bumpiness, so we can expect a, c, d to be negative. 
+Similarly, we want to maximize the number of complete lines, so we can expect B to be positive.
+```
+
+Currently these numbers are not represented correctly as we do not attempt to minimize or maximize any of such. 
+
+
+
+### Solutions
+
+Let's pretend that we have this state:
+
+```
+# # # x x x x x x x x
+x # x x x x x x x x x 
+x x x x x x x x x x x
+x x x x x x x x x x x 
+x x x x x x x x x x x
+x x x x x x x x x x x 
+x x x x # x x x x x x
+x x x x # # x # x x # 
+# x x x x # # # # x #
+# # # x # # # # # # # 
+```
+
+if we look at every possible observation utilizing the function to find what the piece will do, it will "in theory" look for every single way to 
+
+
 ## Version
 
 This project uses Unity (2021.3 or later) and Python (3.8.13 or higher)

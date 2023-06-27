@@ -208,21 +208,25 @@ public class GameController : MonoBehaviour
 
         Vector2Int newPos = new Vector2Int(x, this.pos.y);
 
+        // rotate
+        for (int i = 0; i < rot; i++)
+            RotateRight();
+
         // move
         SetTetromino(newPos);
 
         while(MoveTetromino(Vector2Int.down)){
             continue;
         }
-        // rotate
-        for(int i = 0; i < rot; i++)
-            RotateRight();
 
         // view change        
         this.game.SetCurrentTetromino();
 
         // GET OBSERVATIONS
         float[] result = GetSingleObservation(this.game.TileMap, x, rot);
+
+        // view as image
+
 
         // reset to previous
         this.game.ClearCurrentTetromino();
@@ -261,6 +265,8 @@ public class GameController : MonoBehaviour
         this.game.observations.Clear();
         // FIRST OBSERVATION IS THE TETROMINO
         this.game.observations.Add((float) this.data.tetromino / 7.0f);
+
+
 
         RectInt bound = this.game.bounds;
         //          size of the board
