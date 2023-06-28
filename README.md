@@ -341,8 +341,7 @@ There are multiple solutions to this:
 ```
 // observations[0 to 1] = Current Tetromino Piece
 // observations[1 to 201] = State of the board
-// observations[201 to 201] = State of the board
-
+// observations[201 to 205] = ...
 
 ```
 
@@ -447,6 +446,8 @@ x x x x # # x # x x #
 ```
 
 if we look at every possible observation utilizing the function to find what the piece will do, it will "in theory" look for every single way to 
+
+because we already have the observation looking at the state of the board, we look at the heurisitcs (aggregate height, complete lines, etc) globally. Therefore, we want to generally minimize and maximize these values due to the state. This will save space for observation as well as generalize how we want the board state to be rather than a specific piece and that piece's movement.
 
 
 ## Version

@@ -223,10 +223,7 @@ public class GameController : MonoBehaviour
         this.game.SetCurrentTetromino();
 
         // GET OBSERVATIONS
-        float[] result = GetSingleObservation(this.game.TileMap, x, rot);
-
-        // view as image
-
+        float[] result = GetSingleObservation(this.game.TileMap);
 
         // reset to previous
         this.game.ClearCurrentTetromino();
@@ -237,7 +234,7 @@ public class GameController : MonoBehaviour
         return result;
     }
 
-    public float[] GetSingleObservation(Tilemap map, int x, int rotation) {
+    public float[] GetSingleObservation(Tilemap map) {
 
         float[] obs = new float[4];
 
@@ -266,8 +263,20 @@ public class GameController : MonoBehaviour
         // FIRST OBSERVATION IS THE TETROMINO
         this.game.observations.Add((float) this.data.tetromino / 7.0f);
 
+        RectInt bound = this.game.bounds;
+        //          size of the board
+        for (int x = bound.xMin; x < bound.xMax; x++)
+        {
+            //            total rotations
+            for (int y = bound.yMin; y < bound.yMax; y++)
+            {
+                this.game.observations.Add((float) (this.game.TileMap.HasTile(new Vector3Int(x, y, 0)) ? 1.0 : 0.0));
+            }
+        }
 
+        this.game.observations.AddRange(GetSingleObservation(this.game.TileMap));
 
+        /*
         RectInt bound = this.game.bounds;
         //          size of the board
         for (int col = bound.xMin; col < bound.xMax; col++) {
@@ -276,6 +285,12 @@ public class GameController : MonoBehaviour
                 this.game.observations.AddRange(GetSingleObservationMove(col, y));
             }
         }
+        */
+        /*
+        for(int x = 0; x < this.game.observations.Count; x++)
+        {
+            Debug.Log(this.game.observations[x]);
+        }*/
     }
 
     #endregion
